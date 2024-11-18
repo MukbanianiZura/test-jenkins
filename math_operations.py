@@ -1,3 +1,6 @@
+from math import sqrt
+
+
 def addition(x, y):
     """
         x: int
@@ -28,3 +31,6 @@ def division(x, y):
         y: int
     """
     return x / y
+
+def num_sqrt(x):
+    return sqrt(x)    
