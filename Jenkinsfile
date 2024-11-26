@@ -13,7 +13,7 @@ pipeline {
 
                     checkout([$class: 'GitSCM',
                         branches: [[name: '*/main']],
-                        userRemoteConfigs: [[$url: GIT_REPO_URL]],
+                        userRemoteConfigs: [[url: GIT_REPO_URL]],
                         extentions: [[$class: 'CleanBeforeCheckout'], [$class: 'CloneOption', noTags: false, shallow: true, depth: 1]]
                     ])
                 }
