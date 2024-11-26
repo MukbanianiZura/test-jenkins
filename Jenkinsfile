@@ -1,23 +1,53 @@
-pipeline{
-    agent any 
-    environment{
-        RELEASE = '20.04'
+pipeline {
+    agent any
+
+    environment {
+        def MY_ENV_VAR = 'some_value'
     }
 
     stages{
-        stage('Build') {
-            agent any
-            environment {
-                LOGLEVEL = 'INFO'
-            }
+        stage('Checkout'){
             steps{
-                echo "Building release ${RELEASE} with level ${LOGLEVEL}"
+                script {
+                    def GIT_REPO_URL = 'https://github.com/MukbanianiZura/test-jenkins'
+
+                    checkout([$class: 'GitSCM',
+                        branches: [[$name: '*/main']],
+                        userRemoteConfigs: [[$url: GIT_REPO_URL]],
+                        extentions: [[$class: 'CleanBeforeCheckout'], [$class: 'CloneOption', noTags: false, shallow: true, depth: 1]]
+                    ])
+                }
             }
         }
-        stage('Test') {
+
+        stage('Build'){
             steps{
-                echo "Testing release ${RELEASE} with log level ${LOGLEVEL}"
+                sh '''
+                    ls
+                    echo "In a Build Step"
+                '''
             }
+        }
+
+        stage('Test'){
+            steps{
+                sh 'echo "In Test Step"'
+            }
+        }
+
+        stage ('Deploy'){
+            steps{
+                sh 'echo "Value of ENV variable is $"""'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline success"
+        }
+        failure {
+            echo "Pipeline failed"
         }
     }
 }
