@@ -12,7 +12,7 @@ pipeline {
                     def GIT_REPO_URL = 'https://github.com/MukbanianiZura/test-jenkins'
 
                     checkout([$class: 'GitSCM',
-                        branches: [[$name: '*/main']],
+                        branches: [[name: '*/main']],
                         userRemoteConfigs: [[$url: GIT_REPO_URL]],
                         extentions: [[$class: 'CleanBeforeCheckout'], [$class: 'CloneOption', noTags: false, shallow: true, depth: 1]]
                     ])
