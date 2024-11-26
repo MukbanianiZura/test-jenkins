@@ -1,0 +1,41 @@
+pipeline{
+    agent any
+
+    environment{
+        def RELEASE = '20.04'
+    }
+
+    stages{
+        stage('Build'){
+            agent any
+            environment{
+                def LOG_LEVEL = 'info'
+            }
+            steps{
+                echo "Building release ${RELEASE} on level ${LOG_LEVEL}"
+            }
+        }
+        stage('Test'){
+            steps{
+                echo "Testing resease ${RELEASE}"
+            }
+        }
+        stage('Deploy'){
+            input {
+                message: 'Deploy?'
+                ok: 'do it'
+                parameters {
+                    string(name: 'TARGET_ENVIRONMENT', defaultValue: 'PROD', description: 'Target enrimenent')
+                } 
+            }
+            steps{
+                echo "Deploying release ${RELEASE} on level ${TARGET_ENVIRONMENT}"
+            }
+        }
+    }
+    post{
+        always {
+            echo "Price any time"
+        }
+    }
+}

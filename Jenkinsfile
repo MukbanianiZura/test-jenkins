@@ -37,7 +37,7 @@ pipeline {
 
         stage ('Deploy'){
             steps{
-                sh 'echo "Value of ENV variable is $"""'
+                sh 'echo "Value of ENV variable is "$MY_ENV_VAR""'
             }
         }
     }
