@@ -44,7 +44,7 @@ pipeline {
 
     post {
         always{
-            cleanws()
+            cleanWs()
         }
         success {
             echo "Pipeline success"
