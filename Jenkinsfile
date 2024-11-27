@@ -43,6 +43,9 @@ pipeline {
     }
 
     post {
+        always{
+            cleanws()
+        }
         success {
             echo "Pipeline success"
         }

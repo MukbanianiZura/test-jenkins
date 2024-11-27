@@ -35,7 +35,7 @@ pipeline{
     }
     post{
         always {
-            echo "Price any time"
+            cleanws()
         }
     }
 }
